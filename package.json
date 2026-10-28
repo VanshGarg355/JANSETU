@@ -1,0 +1,24 @@
+{
+  "name": "jansetu",
+  "version": "1.0.0",
+  "description": "JanSetu — Bilingual AI-Powered Government Assistance & DBT Failure Detective Platform",
+  "private": true,
+  "scripts": {
+    "start": "node backend/src/index.js",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "keywords": [
+    "jansetu",
+    "dbt",
+    "government-schemes",
+    "ai-assistance",
+    "build-for-bharat"
+  ],
+  "author": "Team Bit Warriors"
+}

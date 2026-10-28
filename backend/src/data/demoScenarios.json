@@ -1,0 +1,110 @@
+[
+  {
+    "id": "scenario-1",
+    "persona": "Aarav Sharma (Student)",
+    "persona_hi": "आरव शर्मा (विद्यार्थी)",
+    "scenario_title": "Student with Delayed NSP Post-Matric Scholarship",
+    "scenario_title_hi": "एनएसपी पोस्ट-मैट्रिक छात्रवृत्ति में देरी",
+    "issue_id": 1,
+    "user_details": {
+      "name": "Aarav Sharma",
+      "age": 20,
+      "occupation": "Student",
+      "state": "Uttar Pradesh",
+      "category": "Education"
+    },
+    "problem_description": "Aarav applied for post-matric scholarship 4 months ago. College verified, but DBT funds of Rs 25,000 never credited to his bank account.",
+    "problem_description_hi": "आरव ने 4 महीने पहले पोस्ट-मैट्रिक छात्रवृत्ति के लिए आवेदन किया था। कॉलेज द्वारा सत्यापित होने के बाद भी ₹25,000 की राशि खाते में नहीं आई।",
+    "simulated_answers": {
+      "1": "No, never did it",
+      "2": "Yes, status shows Verified",
+      "3": "Shows Processing at Ministry/PFMS",
+      "4": "Yes, fully active"
+    },
+    "expected_diagnosis": {
+      "cause": "Aadhaar Not Seeded in NPCI Mapper",
+      "severity": "High",
+      "action": "Submit Aadhaar DBT Mandate Form at bank branch."
+    }
+  },
+  {
+    "id": "scenario-2",
+    "persona": "Rameshwar Patel (Farmer)",
+    "persona_hi": "रामेश्वर पटेल (किसान)",
+    "scenario_title": "Farmer with Missing PM-KISAN 17th Installment",
+    "scenario_title_hi": "पीएम-किसान की 17वीं किस्त न मिलना",
+    "issue_id": 2,
+    "user_details": {
+      "name": "Rameshwar Patel",
+      "age": 52,
+      "occupation": "Farmer",
+      "state": "Madhya Pradesh",
+      "category": "Agriculture"
+    },
+    "problem_description": "Farmer used to receive Rs 2,000 installments regularly, but the last two installments failed without any clear notification.",
+    "problem_description_hi": "पहले नियमित रूप से ₹2,000 की किस्तें मिलती थीं, लेकिन पिछली दो किस्तें बिना किसी सूचना के रुक गई हैं।",
+    "simulated_answers": {
+      "5": "No, not done yet",
+      "6": "Yes, Land Seeding is YES",
+      "7": "Yes, Active and mapped"
+    },
+    "expected_diagnosis": {
+      "cause": "Mandatory e-KYC Not Completed",
+      "severity": "High",
+      "action": "Complete OTP-based e-KYC on pmkisan.gov.in."
+    }
+  },
+  {
+    "id": "scenario-3",
+    "persona": "Kavita Devi (Pensioner)",
+    "persona_hi": "कविता देवी (पेंशनभोगी)",
+    "scenario_title": "Elderly Widow with Stalled NSAP Pension",
+    "scenario_title_hi": "वृद्धावस्था/विधवा पेंशन का अचानक रुक जाना",
+    "issue_id": 3,
+    "user_details": {
+      "name": "Kavita Devi",
+      "age": 68,
+      "occupation": "Homemaker / Pensioner",
+      "state": "Bihar",
+      "category": "Pension"
+    },
+    "problem_description": "Monthly pension of Rs 1,000 abruptly stopped after November. Branch reports transaction failure from treasury.",
+    "problem_description_hi": "मासिक ₹1,000 की पेंशन नवंबर के बाद रुक गई। बैंक शाखा का कहना है कि ट्रेजरी से भुगतान नहीं आया।",
+    "simulated_answers": {
+      "8": "No, have not submitted",
+      "9": "No, same account for years",
+      "10": "Yes, verified"
+    },
+    "expected_diagnosis": {
+      "cause": "Annual Life Certificate (Jeevan Pramaan) Expired",
+      "severity": "Critical",
+      "action": "Submit Jeevan Pramaan digital life certificate at Post Office or CSC."
+    }
+  },
+  {
+    "id": "scenario-4",
+    "persona": "Sunil Kumar (Daily Wage Worker)",
+    "persona_hi": "सुनील कुमार (श्रमिक)",
+    "scenario_title": "Citizen with Confusing Aadhaar-Bank Seeding Error",
+    "scenario_title_hi": "आधार-बैंक सीडिंग एवं डुप्लिकेट खाता समस्या",
+    "issue_id": 4,
+    "user_details": {
+      "name": "Sunil Kumar",
+      "age": 34,
+      "occupation": "Construction Worker",
+      "state": "Rajasthan",
+      "category": "Banking & Identity"
+    },
+    "problem_description": "Sunil has an active bank account where his employer deposits wages, but government DBT portals say 'Account Not Seeded with NPCI'.",
+    "problem_description_hi": "सुनील के खाते में मजदूरी तो आती है, परंतु सरकारी डीबीटी पोर्टल पर 'Account Not Seeded' त्रुटि आती है।",
+    "simulated_answers": {
+      "11": "No, just gave Aadhaar for KYC",
+      "12": "Yes, have 2 or more accounts"
+    },
+    "expected_diagnosis": {
+      "cause": "Account Linked for KYC but NOT Seeded for DBT in NPCI Mapper",
+      "severity": "High",
+      "action": "Submit NPCI DBT Mandate at bank counter."
+    }
+  }
+]
