@@ -22,7 +22,7 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
-    platform: 'JanSetu — Build for Bharat 2026',
+    platform: 'JanSetu — Civic Welfare & DBT Platform',
     mode: process.env.SUPABASE_SERVICE_ROLE_KEY ? 'live' : 'demo',
     timestamp: new Date().toISOString()
   });

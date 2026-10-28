@@ -1,39 +1,27 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Languages } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const currentLang = i18n.language || 'en';
 
-  const toggleLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem('jansetu_lang', lang);
+  const toggleLanguage = () => {
+    const nextLang = currentLang === 'hi' ? 'en' : 'hi';
+    i18n.changeLanguage(nextLang);
+    localStorage.setItem('jansetu_lang', nextLang);
   };
 
   return (
-    <div className="inline-flex items-center bg-taupe-100/80 backdrop-blur rounded-full p-1 border border-taupe-300 shadow-sm text-xs font-semibold">
-      <Languages size={14} className="ml-2 text-taupe-700" />
-      <button
-        onClick={() => toggleLanguage('en')}
-        className={`px-3 py-1 rounded-full transition-all duration-200 ${
-          i18n.language === 'en'
-            ? 'bg-taupe-850 text-taupe-50 shadow-sm'
-            : 'text-taupe-700 hover:text-taupe-950'
-        }`}
-      >
-        English
-      </button>
-      <button
-        onClick={() => toggleLanguage('hi')}
-        className={`px-3 py-1 rounded-full transition-all duration-200 ${
-          i18n.language === 'hi'
-            ? 'bg-taupe-850 text-taupe-50 shadow-sm'
-            : 'text-taupe-700 hover:text-taupe-950'
-        }`}
-      >
-        हिन्दी
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={toggleLanguage}
+      title="Switch Language / भाषा बदलें"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-950 text-xs font-bold transition-all shadow-2xs"
+    >
+      <Globe size={14} className="text-blue-700" />
+      <span>{currentLang === 'hi' ? 'हिन्दी' : 'English'}</span>
+    </button>
   );
 }
 

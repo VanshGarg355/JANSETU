@@ -53,7 +53,7 @@ const resources = {
       chatPlaceholder: 'Ask AI Sahayak in Hindi or English (e.g. "How to link Aadhaar with bank?")...',
       send: 'Send',
       demoModeActive: 'Demo Mode Active (Verified Datasets Loaded)',
-      disclaimerText: 'JanSetu is an independent civic guidance platform developed for Build for Bharat 2026. We are not an official government entity. Never share passwords, OTPs, or full Aadhaar numbers.',
+      disclaimerText: 'JanSetu is an independent civic guidance platform. We are not an official government entity. Never share passwords, OTPs, or full Aadhaar numbers.',
       formalLoans: 'Verified Formal Loans',
       suspiciousLoans: 'Suspicious Loan & Fraud Awareness',
       hackathonDemoScenarios: 'Hackathon Demo Scenarios',

@@ -171,7 +171,7 @@ router.get('/history/:hid/report', (req, res) => {
     // Disclaimer Footer
     doc.rect(50, 680, 512, 70).fill('#F5F2EF');
     doc.fillColor('#69615C').fontSize(8).text(
-      'DISCLAIMER: JanSetu is an independent civic assistance platform developed for Build for Bharat 2026. This diagnosis is generated from rule-based government guidelines. JanSetu does not disburse funds or represent an official government authority. For official payment records, always consult https://pfms.nic.in/ or your respective scheme portal.',
+      'DISCLAIMER: JanSetu is an independent civic assistance platform. This diagnosis is generated from rule-based government guidelines. JanSetu does not disburse funds or represent an official government authority. For official payment records, always consult https://pfms.nic.in/ or your respective scheme portal.',
       60,
       690,
       { width: 492, align: 'center' }

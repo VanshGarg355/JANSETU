@@ -13,7 +13,11 @@ import {
   Menu,
   X,
   Layers,
-  Banknote
+  Banknote,
+  LayoutDashboard,
+  Sparkles,
+  ChevronDown,
+  ArrowRight
 } from 'lucide-react';
 
 function Navbar() {
@@ -23,36 +27,49 @@ function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { to: '/', label: t('navHome'), icon: Compass },
     { to: '/schemes', label: t('navSchemes'), icon: Layers },
-    { to: '/dbt', label: t('navDbt'), icon: AlertCircle, highlight: true },
+    { to: '/dbt', label: t('navDbt'), icon: AlertCircle, badge: 'Main' },
     { to: '/loans', label: t('navLoans'), icon: Banknote },
     { to: '/chat', label: t('navChat'), icon: MessageSquare },
   ];
 
+  if (user) {
+    navLinks.push({
+      to: '/dashboard',
+      label: t('navDashboard') || 'Dashboard',
+      icon: LayoutDashboard,
+      isDashboard: true
+    });
+  }
+
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-40 bg-taupe-50/95 backdrop-blur-md border-b border-taupe-200 shadow-sm">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-taupe-850 to-taupe-950 flex items-center justify-center text-taupe-200 shadow-md group-hover:scale-105 transition-transform">
-              <span className="font-extrabold text-xl tracking-tight">JS</span>
+        <div className="flex items-center justify-between h-20">
+          {/* 1. Spacious Brand Logo */}
+          <Link to="/" className="flex items-center gap-3.5 group shrink-0">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-900 via-indigo-900 to-blue-700 flex items-center justify-center text-white shadow-md group-hover:shadow-blue-900/20 group-hover:scale-105 transition-all">
+              <span className="font-black text-xl tracking-tighter">JS</span>
             </div>
             <div>
-              <span className="font-bold text-xl text-taupe-950 tracking-tight block">
-                {t('appName')}
-              </span>
-              <span className="text-[10px] text-taupe-600 block -mt-1 font-medium">
-                Team Bit Warriors
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-2xl text-slate-950 tracking-tight">
+                  JanSetu
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-blue-800 border border-blue-200/70 px-2 py-0.5 rounded-md">
+                  जनसेतु
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 font-medium">
+                Direct Citizen Welfare Bridge
+              </p>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* 2. Uncluttered, Elegant Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const active = isActive(link.to);
@@ -60,66 +77,94 @@ function Navbar() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                     active
-                      ? 'bg-taupe-200 text-taupe-950 font-semibold shadow-inner'
-                      : link.highlight
-                      ? 'text-taupe-900 bg-taupe-100 hover:bg-taupe-200'
-                      : 'text-taupe-700 hover:text-taupe-950 hover:bg-taupe-100'
+                      ? 'bg-slate-900 text-white shadow-sm'
+                      : link.isDashboard
+                      ? 'bg-blue-50/80 text-blue-950 border border-blue-200 hover:bg-blue-100'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
                   }`}
                 >
-                  <Icon size={16} className={link.highlight ? 'text-amber-800' : ''} />
+                  <Icon
+                    size={16}
+                    className={
+                      active
+                        ? 'text-white'
+                        : link.badge
+                        ? 'text-amber-600'
+                        : 'text-slate-500'
+                    }
+                  />
                   <span>{link.label}</span>
+                  {link.badge && !active && (
+                    <span className="text-[9px] font-extrabold uppercase tracking-wide bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">
+                      {link.badge}
+                    </span>
+                  )}
+                  {link.isDashboard && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Action: Language + Auth */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* 3. Spacious Right Actions (Language + User Profile / Login) */}
+          <div className="hidden lg:flex items-center gap-4 shrink-0">
             <LanguageSwitcher />
 
+            <div className="h-6 w-px bg-slate-200" />
+
             {user ? (
-              <div className="flex items-center gap-2 pl-2 border-l border-taupe-300">
+              <div className="flex items-center gap-3">
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-taupe-200 hover:bg-taupe-300 text-taupe-950 transition-colors"
+                  className="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/90 text-slate-900 transition-all shadow-2xs group"
                 >
-                  <User size={14} />
-                  <span>{user.name ? user.name.split(' ')[0] : 'Citizen'}</span>
+                  <span className="text-lg leading-none">{user.avatar || '👤'}</span>
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs font-bold leading-tight group-hover:text-blue-900 transition-colors">
+                      {user.name ? user.name.split(' ')[0] : 'Citizen'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-semibold leading-none">
+                      {user.role ? user.role.split(' ')[0] : 'Beneficiary'}
+                    </span>
+                  </div>
                 </Link>
+
                 <button
                   onClick={logout}
                   title={t('logout')}
-                  className="p-1.5 rounded-lg text-taupe-600 hover:text-taupe-950 hover:bg-taupe-200 transition-colors"
+                  className="p-2.5 rounded-xl text-slate-500 hover:text-red-700 hover:bg-red-50 border border-transparent hover:border-red-200 transition-all"
                 >
-                  <LogOut size={16} />
+                  <LogOut size={17} />
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <Link
                   to="/login"
-                  className="px-3 py-1.5 text-xs font-semibold text-taupe-800 hover:text-taupe-950"
+                  className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-slate-950 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                   {t('login')}
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-3.5 py-1.5 text-xs font-semibold bg-taupe-850 hover:bg-taupe-950 text-taupe-50 rounded-lg shadow-sm transition-colors"
+                  className="px-4 py-2 text-xs font-bold bg-blue-900 hover:bg-blue-950 text-white rounded-xl shadow-sm hover:shadow-md transition-all flex items-center gap-1.5"
                 >
-                  {t('signup')}
+                  <span>{t('signup')}</span>
+                  <ArrowRight size={13} />
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Mobile hamburger */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* Mobile hamburger & Quick Language Toggle */}
+          <div className="flex lg:hidden items-center gap-2.5">
             <LanguageSwitcher />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-taupe-700 hover:text-taupe-950"
+              className="p-2.5 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 border border-slate-200 transition-colors"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -127,53 +172,69 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-taupe-200 bg-taupe-50 px-4 pt-2 pb-4 space-y-1 shadow-lg">
+        <div className="lg:hidden border-t border-slate-200 bg-white px-5 pt-3 pb-6 space-y-2 shadow-xl animate-in slide-in-from-top-2">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-taupe-800 hover:bg-taupe-200"
+              className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+                isActive(link.to)
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-800 hover:bg-slate-100'
+              }`}
             >
-              <link.icon size={16} />
-              <span>{link.label}</span>
+              <div className="flex items-center gap-3">
+                <link.icon size={18} />
+                <span>{link.label}</span>
+              </div>
+              {link.badge && (
+                <span className="text-[10px] uppercase font-extrabold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           ))}
-          <div className="pt-2 border-t border-taupe-200">
+
+          <div className="pt-3 border-t border-slate-200">
             {user ? (
-              <div className="flex items-center justify-between px-3 py-2">
+              <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
                 <Link
                   to="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-semibold text-taupe-900"
+                  className="flex items-center gap-2.5 text-xs font-bold text-slate-900"
                 >
-                  {t('navDashboard')} ({user.name})
+                  <span className="text-xl">{user.avatar || '👤'}</span>
+                  <div>
+                    <div className="text-sm font-extrabold">{user.name}</div>
+                    <div className="text-slate-500 font-normal">Go to Dashboard</div>
+                  </div>
                 </Link>
                 <button
                   onClick={() => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-xs text-red-700 font-semibold"
+                  className="text-xs text-red-700 font-bold px-3 py-1.5 rounded-lg hover:bg-red-50 border border-red-200"
                 >
                   {t('logout')}
                 </button>
               </div>
             ) : (
-              <div className="flex gap-2 pt-1">
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 text-center py-2 text-xs font-semibold border border-taupe-400 rounded-lg"
+                  className="text-center py-2.5 text-xs font-bold border border-slate-300 rounded-xl text-slate-800"
                 >
                   {t('login')}
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 text-center py-2 text-xs font-semibold bg-taupe-850 text-white rounded-lg"
+                  className="text-center py-2.5 text-xs font-bold bg-blue-900 text-white rounded-xl shadow-sm"
                 >
                   {t('signup')}
                 </Link>

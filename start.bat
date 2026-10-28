@@ -1,7 +1,7 @@
 @echo off
 title JanSetu - Platform Runner
 echo ==============================================================
-echo                 JANSETU - BUILD FOR BHARAT 2026
+echo                 JANSETU - CITIZEN WELFARE PLATFORM
 echo         Bilingual AI Government Assistance Platform
 echo ==============================================================
 echo.

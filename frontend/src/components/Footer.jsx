@@ -22,7 +22,7 @@ function Footer() {
               {t('tagline')}
             </p>
             <span className="inline-block text-[11px] font-semibold tracking-wider uppercase text-taupe-200 bg-taupe-800 px-2.5 py-1 rounded">
-              Build for Bharat 2026
+              Civic Technology Initiative
             </span>
           </div>
 
@@ -104,11 +104,11 @@ function Footer() {
         </div>
 
         <div className="border-t border-taupe-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-taupe-400 gap-2">
-          <p>© 2026 JanSetu — Built with passion by Team Bit Warriors.</p>
+          <p>© 2026 JanSetu — Direct Bridge Between Citizens & Government Schemes.</p>
           <div className="flex items-center gap-4 text-xs">
             <span>Bilingual (Hindi + English)</span>
             <span>•</span>
-            <span>Monochromatic Warm Taupe</span>
+            <span>Civic Tech Platform</span>
           </div>
         </div>
       </div>

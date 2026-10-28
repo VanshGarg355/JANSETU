@@ -1,6 +1,6 @@
 # JANSETU (जनसेतु)
 ### Direct Bridge Between Citizens & Government Schemes
-**Build for Bharat 2026 — Team Bit Warriors**
+**Direct Citizen Welfare & DBT Diagnostic Platform**
 
 ---
 

@@ -14,7 +14,8 @@ import {
   Users,
   Award,
   ChevronDown,
-  Sparkles
+  Sparkles,
+  LayoutDashboard
 } from 'lucide-react';
 
 function LandingPage() {
@@ -79,7 +80,7 @@ function LandingPage() {
       q: isHindi ? 'जनसेतु क्या है और यह नागरिकों की कैसे मदद करता है?' : 'What is JanSetu and how does it help citizens?',
       a: isHindi
         ? 'जनसेतु एक द्विभाषी (हिंदी + अंग्रेज़ी) नागरिक सहायता मंच है जो नागरिकों को उनकी पात्र सरकारी योजनाएं खोजने, आधार-बैंक सीडिंग जैसी डीबीटी विफलताओं का निवारण करने और एआई द्वारा सही सरकारी पोर्टल तक पहुंचने में मदद करता है।'
-        : 'JanSetu is a bilingual civic assistance platform built for Build for Bharat 2026. It bridges citizens with verified welfare schemes and provides rule-based DBT diagnostics to resolve stalled bank credits.'
+        : 'JanSetu is a bilingual civic assistance platform. It bridges citizens with verified welfare schemes and provides rule-based DBT diagnostics to resolve stalled bank credits.'
     },
     {
       q: isHindi ? 'डीबीटी (DBT) भुगतान क्यों रुक जाता है?' : 'Why do government DBT payments fail or get delayed?',
@@ -104,35 +105,35 @@ function LandingPage() {
   return (
     <div className="space-y-16 pb-12">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-8 pb-14 rounded-3xl bg-gradient-to-b from-taupe-100/90 to-taupe-50 border border-taupe-200 shadow-sm px-4 sm:px-8">
+      <section className="relative overflow-hidden pt-10 pb-16 rounded-3xl bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border border-slate-200/90 shadow-sm px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-taupe-200 text-taupe-900 text-xs font-semibold tracking-wide border border-taupe-300 shadow-sm">
-            <Sparkles size={14} className="text-taupe-800" />
-            <span>Build for Bharat 2026 • Team Bit Warriors</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 text-blue-900 text-xs font-bold tracking-wide border border-blue-200/80 shadow-xs">
+            <Sparkles size={14} className="text-blue-700" />
+            <span>Digital Welfare Portal • Citizen Civic Bridge</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-taupe-950 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-tight leading-tight">
             {t('heroTitle')}
           </h1>
 
-          <p className="text-base sm:text-lg text-taupe-700 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {t('heroSubtitle')}
           </p>
 
           {/* Quick Search */}
           <form onSubmit={handleSearch} className="max-w-xl mx-auto pt-2">
             <div className="relative flex items-center">
-              <Search size={18} className="absolute left-4 text-taupe-500" />
+              <Search size={18} className="absolute left-4 text-slate-400" />
               <input
                 type="text"
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-11 pr-28 py-3.5 bg-white rounded-2xl border border-taupe-300 text-sm text-taupe-950 placeholder:text-taupe-400 focus:outline-none focus:ring-2 focus:ring-taupe-700 shadow-sm transition-all"
+                className="w-full pl-11 pr-28 py-3.5 bg-white rounded-2xl border border-slate-300 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800 shadow-sm transition-all font-medium"
               />
               <button
                 type="submit"
-                className="absolute right-2 px-4 py-2 bg-taupe-850 hover:bg-taupe-950 text-taupe-50 text-xs font-semibold rounded-xl transition-all shadow-sm"
+                className="absolute right-2 px-4 py-2 bg-blue-900 hover:bg-blue-950 text-white text-xs font-bold rounded-xl transition-all shadow-sm"
               >
                 {t('searchPlaceholder') ? (isHindi ? 'खोजें' : 'Search') : 'Search'}
               </button>
@@ -142,17 +143,25 @@ function LandingPage() {
           {/* Hero CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <Link
-              to="/dbt"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-taupe-850 hover:bg-taupe-950 text-taupe-50 text-sm font-semibold shadow-md hover:shadow-lg transition-all"
+              to="/dashboard"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
             >
-              <AlertCircle size={16} />
-              <span>{t('dbtDetectiveBtn')}</span>
+              <LayoutDashboard size={16} />
+              <span>{isHindi ? 'नागरिक डैशबोर्ड' : 'Citizen Dashboard'}</span>
               <ArrowRight size={14} />
             </Link>
 
             <Link
+              to="/dbt"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 text-sm font-bold border border-amber-300 transition-all shadow-xs"
+            >
+              <AlertCircle size={16} className="text-amber-700" />
+              <span>{t('dbtDetectiveBtn')}</span>
+            </Link>
+
+            <Link
               to="/schemes"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-taupe-200 hover:bg-taupe-300 text-taupe-950 text-sm font-semibold border border-taupe-300 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-sm font-bold border border-slate-300 transition-all shadow-xs"
             >
               <Compass size={16} />
               <span>{t('findSchemesBtn')}</span>
@@ -160,7 +169,7 @@ function LandingPage() {
 
             <Link
               to="/chat"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-taupe-100 text-taupe-900 text-sm font-semibold border border-taupe-300 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-sm font-bold border border-slate-300 transition-all shadow-xs"
             >
               <MessageSquare size={16} />
               <span>{t('aiSahayakBtn')}</span>

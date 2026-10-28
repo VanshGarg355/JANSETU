@@ -1,16 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 function DisclaimerBanner() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-taupe-200/90 border-b border-taupe-300 text-taupe-850 px-4 py-2 text-xs">
+    <div className="bg-[#0B1E38] text-slate-200 border-b border-slate-800 px-4 py-2 text-xs font-medium">
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-center">
-        <ShieldAlert size={14} className="text-taupe-700 shrink-0" />
+        <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
         <span>
-          <strong>Build for Bharat 2026:</strong> {t('disclaimerText')}
+          <strong className="text-white">JanSetu Advisory:</strong> {t('disclaimerText')}
         </span>
       </div>
     </div>
