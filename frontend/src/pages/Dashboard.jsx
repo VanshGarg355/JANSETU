@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth, DEMO_PERSONAS } from '../context/AuthContext';
 import FamilyDocumentsVault from '../components/FamilyDocumentsVault';
+=======
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useAuth, DEMO_PERSONAS } from '../context/AuthContext';
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 import {
   User,
   Bookmark,
@@ -36,6 +42,7 @@ function Dashboard() {
   const { t, i18n } = useTranslation();
   const { user, switchPersona } = useAuth();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [searchParams] = useSearchParams();
   const isHindi = i18n.language === 'hi';
 
@@ -47,6 +54,11 @@ function Dashboard() {
       setActiveTab(tabFromUrl);
     }
   }, [searchParams]);
+=======
+  const isHindi = i18n.language === 'hi';
+
+  const [activeTab, setActiveTab] = useState('schemes'); // 'schemes' | 'dbt_health' | 'documents' | 'calendar'
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
   const [schemeFilter, setSchemeFilter] = useState('all'); // 'all' | 'saved' | 'high_match'
   const [savedSchemes, setSavedSchemes] = useState([]);
   const [allSchemes, setAllSchemes] = useState([]);
@@ -57,6 +69,18 @@ function Dashboard() {
   const [diagResult, setDiagResult] = useState(null);
   const [diagLoading, setDiagLoading] = useState(false);
 
+<<<<<<< HEAD
+=======
+  // Digital locker document checklist state
+  const [documents, setDocuments] = useState([
+    { id: 1, name: 'Aadhaar Card', name_hi: 'आधार कार्ड', requiredFor: 'All Schemes', status: 'verified', updated: '2026-01-12' },
+    { id: 2, name: 'Bank Passbook (NPCI Seeded)', name_hi: 'बैंक पासबुक (NPCI सीडेड)', requiredFor: 'DBT Credits', status: 'verified', updated: '2026-02-05' },
+    { id: 3, name: 'Land Record (RoR / Khasra)', name_hi: 'भूमि अभिलेख (खसरा/खतौनी)', requiredFor: 'PM-KISAN / KCC', status: 'verified', updated: '2025-11-20' },
+    { id: 4, name: 'Income / Caste Certificate', name_hi: 'आय / जाति प्रमाण पत्र', requiredFor: 'Scholarships & Subsidies', status: 'verified', updated: '2025-08-14' },
+    { id: 5, name: 'Jeevan Pramaan (Life Certificate)', name_hi: 'जीवन प्रमाण पत्र', requiredFor: 'Pensions (NSAP/IGNOAPS)', status: 'action_required', updated: 'Expired Nov 2025' }
+  ]);
+
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
   useEffect(() => {
     fetchDashboardData();
   }, [user]);
@@ -97,6 +121,10 @@ function Dashboard() {
           ]);
         }
       } catch (e) {
+<<<<<<< HEAD
+=======
+        // Fallback default bookmarks
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
         setSavedSchemes([
           {
             id: 1,
@@ -262,6 +290,23 @@ function Dashboard() {
     }, 600);
   };
 
+<<<<<<< HEAD
+=======
+  const toggleDocumentVerification = (docId) => {
+    setDocuments(docs =>
+      docs.map(d =>
+        d.id === docId
+          ? {
+              ...d,
+              status: d.status === 'verified' ? 'action_required' : 'verified',
+              updated: 'Just now (Simulated)'
+            }
+          : d
+      )
+    );
+  };
+
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
   // Filter schemes based on active tab and filters
   const displaySchemes = allSchemes.filter(s => {
     if (schemeFilter === 'saved') {
@@ -360,6 +405,7 @@ function Dashboard() {
               <ArrowRight size={13} />
             </Link>
 
+<<<<<<< HEAD
             <button
               onClick={() => setActiveTab('documents')}
               className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl border transition-all ${
@@ -372,12 +418,18 @@ function Dashboard() {
               <span>{isHindi ? 'दस्तावेज़ वॉल्ट (किसान, छात्र, पेंशन)' : 'Document Vault (Farmer, Student, Pension)'}</span>
             </button>
 
+=======
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
             <Link
               to="/schemes"
               className="inline-flex items-center gap-2 px-4 py-2 bg-taupe-200 hover:bg-taupe-300 text-taupe-950 text-xs font-bold rounded-xl border border-taupe-300 transition-colors"
             >
               <Layers size={14} />
+<<<<<<< HEAD
               <span>Browse 25+ Schemes</span>
+=======
+              <span>Browse 25+ Verified Schemes</span>
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
             </Link>
 
             <Link
@@ -480,6 +532,7 @@ function Dashboard() {
         </button>
 
         <button
+<<<<<<< HEAD
           onClick={() => setActiveTab('documents')}
           className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all shrink-0 flex items-center gap-2 ${
             activeTab === 'documents'
@@ -495,6 +548,8 @@ function Dashboard() {
         </button>
 
         <button
+=======
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
           onClick={() => setActiveTab('dbt_health')}
           className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all shrink-0 flex items-center gap-2 ${
             activeTab === 'dbt_health'
@@ -507,6 +562,21 @@ function Dashboard() {
         </button>
 
         <button
+<<<<<<< HEAD
+=======
+          onClick={() => setActiveTab('documents')}
+          className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all shrink-0 flex items-center gap-2 ${
+            activeTab === 'documents'
+              ? 'bg-taupe-850 text-white shadow-sm'
+              : 'text-taupe-700 hover:text-taupe-950 hover:bg-taupe-200'
+          }`}
+        >
+          <FileCheck2 size={15} />
+          <span>Digital Locker & Documents</span>
+        </button>
+
+        <button
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
           onClick={() => setActiveTab('calendar')}
           className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all shrink-0 flex items-center gap-2 ${
             activeTab === 'calendar'
@@ -598,6 +668,7 @@ function Dashboard() {
                             </span>
                             <span className="text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1">
                               <Sparkles size={10} />
+<<<<<<< HEAD
                               <span>{s.eligibility_match || 90}% Match for {user?.occupation || 'Profile'}</span>
                             </span>
                           </div>
@@ -625,11 +696,53 @@ function Dashboard() {
 
                         {/* Actions */}
                         <div className="flex items-center sm:flex-col gap-2 shrink-0 pt-2 sm:pt-0">
+=======
+                              {s.eligibility_match || 90}% Profile Match
+                            </span>
+                          </div>
+
+                          <h3 className="text-base font-bold text-taupe-950">
+                            {isHindi && s.name_hi ? s.name_hi : s.name}
+                          </h3>
+
+                          {s.ministry && (
+                            <p className="text-[11px] text-taupe-500">
+                              {s.ministry}
+                            </p>
+                          )}
+
+                          <p className="text-xs text-taupe-700 leading-relaxed pt-1">
+                            {isHindi && s.benefits_hi ? s.benefits_hi : s.benefits}
+                          </p>
+
+                          {/* Required Documents Checklist Chips */}
+                          <div className="pt-2 flex flex-wrap items-center gap-1.5 text-[11px]">
+                            <span className="text-taupe-500 font-medium">Required:</span>
+                            {(s.docs || ['Aadhaar', 'Bank Passbook', 'Land/Income Proof']).map((doc, idx) => (
+                              <span key={idx} className="bg-taupe-50 border border-taupe-200 text-taupe-800 px-2 py-0.5 rounded-full text-[10px] font-medium flex items-center gap-1">
+                                <Check size={10} className="text-emerald-600" />
+                                {doc}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex sm:flex-col items-center gap-2 shrink-0 pt-2 sm:pt-0">
+                          <Link
+                            to={`/schemes/${s.id}`}
+                            className="w-full sm:w-auto px-3.5 py-1.5 bg-taupe-100 hover:bg-taupe-200 text-taupe-950 text-xs font-bold rounded-xl transition-colors text-center"
+                          >
+                            View Details
+                          </Link>
+
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
                           {s.official_url && (
                             <a
                               href={s.official_url}
                               target="_blank"
                               rel="noreferrer"
+<<<<<<< HEAD
                               className="px-3.5 py-1.5 bg-taupe-850 hover:bg-taupe-950 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5"
                             >
                               <span>Apply Now</span>
@@ -651,6 +764,22 @@ function Dashboard() {
                               className="px-3 py-1.5 bg-taupe-100 hover:bg-taupe-200 text-taupe-800 text-xs font-bold rounded-xl transition-colors"
                             >
                               + Save
+=======
+                              className="w-full sm:w-auto px-3.5 py-1.5 bg-taupe-850 hover:bg-taupe-950 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                            >
+                              <span>Apply Now</span>
+                              <ExternalLink size={11} />
+                            </a>
+                          )}
+
+                          {isSaved && (
+                            <button
+                              onClick={() => handleRemoveSaved(s.id)}
+                              className="text-[11px] text-red-600 hover:text-red-800 font-semibold flex items-center gap-1 mt-1"
+                            >
+                              <Trash2 size={12} />
+                              <span>Remove</span>
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
                             </button>
                           )}
                         </div>
@@ -662,6 +791,7 @@ function Dashboard() {
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* Quick AI Prompts Sidebar (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="bg-white border border-taupe-300 rounded-3xl p-6 shadow-sm space-y-4">
@@ -688,6 +818,91 @@ function Dashboard() {
                   >
                     <span className="line-clamp-2">{promptText}</span>
                     <ArrowRight size={13} className="text-taupe-400 group-hover:text-taupe-900 group-hover:translate-x-0.5 transition-transform shrink-0" />
+=======
+          {/* Right Sidebar: JanSetu Beneficiary Digital Card & Quick AI (4 cols) */}
+          <div className="lg:col-span-4 space-y-5">
+            {/* Beneficiary Digital Card */}
+            <div className="bg-gradient-to-br from-taupe-900 to-taupe-950 text-white rounded-3xl p-6 shadow-xl border border-taupe-700 relative overflow-hidden">
+              <div className="flex items-center justify-between pb-4 border-b border-taupe-800">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-black text-sm">
+                    JS
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold tracking-tight block">JANSETU PASS</span>
+                    <span className="text-[9px] text-taupe-400 block -mt-0.5">Government Beneficiary Pass</span>
+                  </div>
+                </div>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">
+                  Verified
+                </span>
+              </div>
+
+              <div className="my-5 space-y-3 text-xs">
+                <div>
+                  <div className="text-[10px] text-taupe-400 uppercase tracking-wider">Beneficiary Name</div>
+                  <div className="text-sm font-bold text-white mt-0.5">{user?.name}</div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <div className="text-[10px] text-taupe-400">Occupation</div>
+                    <div className="font-semibold text-taupe-200">{user?.role || user?.occupation}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-taupe-400">State / Region</div>
+                    <div className="font-semibold text-taupe-200">{user?.state}</div>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-taupe-800/80 rounded-2xl border border-taupe-700 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] text-taupe-400">Primary DBT Bank</div>
+                    <div className="font-mono text-xs font-bold text-taupe-100">
+                      {user?.bank_name || 'SBI'} ••••{user?.account_last4 || '4921'}
+                    </div>
+                  </div>
+                  <CheckCircle2 size={18} className="text-emerald-400" />
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-taupe-800/80 flex items-center justify-between text-[11px] text-taupe-400">
+                <span>PFMS / NPCI Synchronized</span>
+                <button
+                  type="button"
+                  onClick={() => alert(`Citizen Digital Pass downloaded for ${user?.name} (ID: JS-${user?.account_last4 || '4921'})`)}
+                  className="text-amber-400 hover:text-amber-300 font-bold inline-flex items-center gap-1"
+                >
+                  <Download size={12} />
+                  <span>Download Pass</span>
+                </button>
+              </div>
+            </div>
+
+            {/* AI Sahayak Quick Assistance Drawer */}
+            <div className="bg-white border border-taupe-300 rounded-3xl p-5 shadow-sm space-y-3">
+              <div className="flex items-center gap-2">
+                <MessageSquare size={16} className="text-taupe-850" />
+                <h3 className="text-sm font-bold text-taupe-950">AI Sahayak Quick Help</h3>
+              </div>
+              <p className="text-xs text-taupe-600">
+                Ask questions about your entitlements in Hindi or English:
+              </p>
+
+              <div className="space-y-1.5">
+                {[
+                  'How to link NPCI mapper at my bank?',
+                  'Why did my scholarship get delayed?',
+                  'Documents required for Kisan Credit Card'
+                ].map((promptText, i) => (
+                  <button
+                    key={i}
+                    onClick={() => navigate(`/chat?q=${encodeURIComponent(promptText)}`)}
+                    className="w-full text-left p-2.5 rounded-xl bg-taupe-50 hover:bg-taupe-100 border border-taupe-200 text-xs text-taupe-850 font-medium transition-colors flex items-center justify-between group"
+                  >
+                    <span className="line-clamp-1">{promptText}</span>
+                    <ArrowRight size={12} className="text-taupe-400 group-hover:text-taupe-900 group-hover:translate-x-0.5 transition-transform shrink-0" />
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
                   </button>
                 ))}
               </div>
@@ -703,12 +918,16 @@ function Dashboard() {
         </div>
       )}
 
+<<<<<<< HEAD
       {/* 5. Tab 2: Family Documents & Digital Locker (Dedicated Full Section!) */}
       {activeTab === 'documents' && (
         <FamilyDocumentsVault isHindi={isHindi} currentUser={user} />
       )}
 
       {/* 6. Tab 3: DBT Payment Health & Diagnostics (Interactive) */}
+=======
+      {/* 5. Tab 2: DBT Payment Health & Diagnostics (Interactive) */}
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
       {activeTab === 'dbt_health' && (
         <div className="space-y-6">
           {/* Visual 4-Step Aadhaar-Bank Seeding Health Tracker */}
@@ -900,6 +1119,80 @@ function Dashboard() {
         </div>
       )}
 
+<<<<<<< HEAD
+=======
+      {/* 6. Tab 3: Citizen Digital Locker & Document Checklist */}
+      {activeTab === 'documents' && (
+        <div className="bg-white border border-taupe-300 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-taupe-200">
+            <div>
+              <h2 className="text-lg font-bold text-taupe-950 flex items-center gap-2">
+                <FileCheck2 size={20} className="text-taupe-850" />
+                <span>Citizen Document Verification Locker</span>
+              </h2>
+              <p className="text-xs text-taupe-600 mt-0.5">
+                Keep key welfare documents updated to prevent scholarship, subsidy, and pension rejections.
+              </p>
+            </div>
+            <span className="text-xs text-taupe-500 font-medium">
+              4 of 5 Documents Active & Verified
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            {documents.map((doc) => {
+              const isVerified = doc.status === 'verified';
+              return (
+                <div
+                  key={doc.id}
+                  className="p-4 rounded-2xl bg-taupe-50 border border-taupe-200 hover:border-taupe-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all"
+                >
+                  <div className="flex items-start sm:items-center gap-3">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                      isVerified ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                    }`}>
+                      {isVerified ? <CheckCircle2 size={18} /> : <AlertTriangle size={18} />}
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-taupe-950">
+                        {isHindi ? doc.name_hi : doc.name}
+                      </h4>
+                      <p className="text-[11px] text-taupe-600">
+                        Required for: <strong className="text-taupe-800">{doc.requiredFor}</strong> • Last updated: {doc.updated}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${
+                      isVerified
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                        : 'bg-amber-100 text-amber-900 border border-amber-300'
+                    }`}>
+                      {isVerified ? 'Verified & Linked' : 'Renewal Due'}
+                    </span>
+                    <button
+                      onClick={() => toggleDocumentVerification(doc.id)}
+                      className="px-3 py-1 bg-white hover:bg-taupe-200 text-taupe-850 font-bold text-xs rounded-xl border border-taupe-300 transition-colors"
+                    >
+                      {isVerified ? 'Simulate Recheck' : 'Verify Now'}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="p-4 bg-taupe-100/70 border border-taupe-300 rounded-2xl text-xs text-taupe-700 flex items-center gap-3">
+            <ShieldCheck size={20} className="text-emerald-700 shrink-0" />
+            <div>
+              <strong className="text-taupe-900">Zero Document Storage Policy:</strong> JanSetu does not store unencrypted copies of your Aadhaar card or banking passwords. All status checks are simulated or verified directly through official APIs.
+            </div>
+          </div>
+        </div>
+      )}
+
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
       {/* 7. Tab 4: DBT Installment Calendar & Directives */}
       {activeTab === 'calendar' && (
         <div className="bg-white border border-taupe-300 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">

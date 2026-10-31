@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
 const axios = require('axios');
 const { supabase } = require('../supabaseClient');
 const demoSchemes = require('../data/demoSchemes.json');
@@ -205,6 +206,10 @@ router.post('/match-situation', async (req, res) => {
     res.status(500).json({ error: 'Failed to process situation matching', details: error.message });
   }
 });
+=======
+const { supabase } = require('../supabaseClient');
+const demoSchemes = require('../data/demoSchemes.json');
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 
 // List schemes with search, category filtering, and eligibility matching
 router.get('/', async (req, res) => {

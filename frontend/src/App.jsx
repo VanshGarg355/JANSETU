@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -6,6 +7,14 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { Menu, ShieldCheck, User } from 'lucide-react';
+=======
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import DisclaimerBanner from './components/DisclaimerBanner';
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -17,7 +26,10 @@ import DBTDetective from './pages/DBTDetective';
 import AIChat from './pages/AIChat';
 import LoanDiscovery from './pages/LoanDiscovery';
 import AdminDashboard from './pages/AdminDashboard';
+<<<<<<< HEAD
 import DocumentsPage from './pages/DocumentsPage';
+=======
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 
 // Protected Route Wrapper
 function PrivateRoute({ children }) {
@@ -28,6 +40,7 @@ function PrivateRoute({ children }) {
   return user ? children : <Navigate to="/login" replace />;
 }
 
+<<<<<<< HEAD
 function AppContent() {
   const { user } = useAuth();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -167,6 +180,50 @@ function App() {
   return (
     <AuthProvider>
       <AppContent />
+=======
+function App() {
+  return (
+    <AuthProvider>
+      <div className="min-h-screen flex flex-col bg-[#F5F4EF] text-[#0F0F0E]">
+        <Navbar />
+
+        <main className="flex-1 pt-6">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/schemes" element={<SchemeFinder />} />
+            <Route path="/schemes/:id" element={<SchemeDetail />} />
+            <Route path="/dbt" element={<DBTDetective />} />
+            <Route path="/loans" element={<LoanDiscovery />} />
+            <Route path="/chat" element={<AIChat />} />
+
+            {/* Protected Routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
     </AuthProvider>
   );
 }

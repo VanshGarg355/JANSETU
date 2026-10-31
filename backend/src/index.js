@@ -11,7 +11,10 @@ const aiRoutes = require('./routes/ai');
 const savedRoutes = require('./routes/savedSchemes');
 const loansRoutes = require('./routes/loans');
 const adminRoutes = require('./routes/admin');
+<<<<<<< HEAD
 const documentsRoutes = require('./routes/documents');
+=======
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 
 const app = express();
 
@@ -37,7 +40,10 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/saved-schemes', savedRoutes);
 app.use('/api/loans', loansRoutes);
 app.use('/api/admin', adminRoutes);
+<<<<<<< HEAD
 app.use('/api/documents', documentsRoutes);
+=======
+>>>>>>> c6a0618c18654d881a99ac583080468894e43f72
 
 // Global Error Handler
 app.use((err, req, res, next) => {
