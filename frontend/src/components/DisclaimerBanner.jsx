@@ -6,7 +6,7 @@ function DisclaimerBanner() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-[#0B1E38] text-slate-200 border-b border-slate-800 px-4 py-2 text-xs font-medium">
+    <div className="bg-[#151515] text-slate-200 border-b border-slate-800 px-4 py-2 text-xs font-medium">
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-center">
         <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
         <span>

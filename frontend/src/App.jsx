@@ -28,7 +28,7 @@ function PrivateRoute({ children }) {
 function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A]">
+      <div className="min-h-screen flex flex-col bg-[#F5F4EF] text-[#0F0F0E]">
         <Navbar />
 
         <main className="flex-1 pt-6">

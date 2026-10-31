@@ -7,29 +7,49 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Modern Civic Tech Palette (Replaces dull muddy taupe with crisp slate & royal civic navy)
+        // ATRIUM-style editorial palette: paper, ink, coral red, butter yellow, sky blue.
+        // Every existing taupe / slate / blue / amber / red class remaps to it.
         taupe: {
-          50: '#F8FAFC',   // Clean ultra-light slate
-          100: '#F1F5F9',  // Soft cool surface fill
-          200: '#E2E8F0',  // Crisp border & pill background
-          300: '#CBD5E1',  // Defined card borders
-          400: '#94A3B8',  // Soft slate muted icons & placeholders
-          500: '#64748B',  // Clean secondary slate
-          600: '#475569',  // Readable description text
-          700: '#334155',  // High-contrast slate typography
-          800: '#1E293B',  // Rich dark slate
-          850: '#0F274A',  // Signature Civic Royal Navy (Executive & Authoritative)
-          900: '#0B1E38',  // Deep Midnight Navy (Footer & Hero Card backgrounds)
-          950: '#061224',  // Midnight Black-Navy (Maximum contrast)
-          black: '#020617'
+          50: '#F5F4EF',   // paper (page background)
+          100: '#EFEDE6',
+          200: '#E4E2DA',
+          300: '#D3D0C6',
+          400: '#A09E96',
+          500: '#7A7873',
+          600: '#62615D',
+          700: '#45443F',
+          800: '#2A2927',
+          850: '#151515',  // card-dark
+          900: '#151515',
+          950: '#0F0F0E',  // ink
+          black: '#0F0F0E'
+        },
+        slate: {
+          50: '#F5F4EF', 100: '#EFEDE6', 200: '#E4E2DA', 300: '#D3D0C6', 400: '#A09E96',
+          500: '#7A7873', 600: '#62615D', 700: '#45443F', 800: '#2A2927', 900: '#151515', 950: '#0F0F0E'
+        },
+        // Sky blue accents; 800+ become ink so primary buttons read as black pills.
+        blue: {
+          50: '#F0F9FE', 100: '#DCEFFC', 200: '#BFE2F9', 300: '#9FD5F7', 400: '#6FBBE8',
+          500: '#4A9FD1', 600: '#357FAE', 700: '#27607F', 800: '#1D1D1B', 900: '#151515', 950: '#0F0F0E'
+        },
+        // Butter yellow
+        amber: {
+          50: '#FFFAEB', 100: '#FEF1C2', 200: '#FDE79A', 300: '#FCDD71', 400: '#F6CB45',
+          500: '#E0B020', 600: '#B88C0F', 700: '#8A6A0A', 800: '#5E4707', 900: '#443304', 950: '#2E2203'
+        },
+        // Coral red
+        red: {
+          50: '#FEF1EE', 100: '#FDE0DA', 200: '#FBC3B8', 300: '#F7A091', 400: '#F37F69',
+          500: '#EF5D44', 600: '#D44630', 700: '#AE3624', 800: '#8A2D1F', 900: '#6F281D', 950: '#3E130C'
         },
         civic: {
-          blue: '#1E40AF',
-          blueHover: '#1D4ED8',
-          saffron: '#EA580C',
+          blue: '#0F0F0E',
+          blueHover: '#2A2927',
+          saffron: '#EF5D44',
           green: '#059669',
-          amber: '#D97706',
-          sky: '#0284C7'
+          amber: '#FCDD71',
+          sky: '#9FD5F7'
         }
       },
       fontFamily: {

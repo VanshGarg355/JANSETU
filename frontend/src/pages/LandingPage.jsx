@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -17,6 +17,10 @@ import {
   Sparkles,
   LayoutDashboard
 } from 'lucide-react';
+import HeroMosaic from '../components/HeroMosaic';
+
+// Entrance plays once per page load (not on every client-side navigation).
+let introPlayed = false;
 
 function LandingPage() {
   const { t, i18n } = useTranslation();
@@ -25,6 +29,22 @@ function LandingPage() {
   const [openFaq, setOpenFaq] = useState(null);
 
   const isHindi = i18n.language === 'hi';
+
+  // Load entrance: html.intro hides elements, html.intro-run plays the timeline.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || introPlayed) return undefined;
+    introPlayed = true;
+    root.classList.add('intro');
+    const raf = requestAnimationFrame(() => root.classList.add('intro-run'));
+    const t = setTimeout(() => root.classList.remove('intro'), 4000); // safety
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+      root.classList.remove('intro', 'intro-run');
+    };
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -106,22 +126,23 @@ function LandingPage() {
     <div className="space-y-16 pb-12">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-10 pb-16 rounded-3xl bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border border-slate-200/90 shadow-sm px-4 sm:px-8">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 text-blue-900 text-xs font-bold tracking-wide border border-blue-200/80 shadow-xs">
+        <div className="hero-split max-w-7xl mx-auto">
+        <div className="text-center lg:text-left space-y-6">
+          <div style={{ '--i': 0 }} className="hero-fade inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 text-blue-900 text-xs font-bold tracking-wide border border-blue-200/80 shadow-xs">
             <Sparkles size={14} className="text-blue-700" />
             <span>Digital Welfare Portal • Citizen Civic Bridge</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-tight leading-tight">
-            {t('heroTitle')}
+          <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-slate-950 tracking-tight leading-tight">
+            <span className="hero-line" style={{ '--i': 0 }}><span>{t('heroTitle')}</span></span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p style={{ '--i': 1 }} className="hero-fade text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
             {t('heroSubtitle')}
           </p>
 
           {/* Quick Search */}
-          <form onSubmit={handleSearch} className="max-w-xl mx-auto pt-2">
+          <form onSubmit={handleSearch} style={{ '--i': 2 }} className="hero-fade max-w-xl mx-auto lg:mx-0 pt-2">
             <div className="relative flex items-center">
               <Search size={18} className="absolute left-4 text-slate-400" />
               <input
@@ -141,7 +162,7 @@ function LandingPage() {
           </form>
 
           {/* Hero CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+          <div style={{ '--i': 3 }} className="hero-fade flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
             <Link
               to="/dashboard"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
@@ -176,6 +197,9 @@ function LandingPage() {
             </Link>
           </div>
         </div>
+
+        <HeroMosaic isHindi={isHindi} />
+      </div>
       </section>
 
       {/* Services Grid */}
