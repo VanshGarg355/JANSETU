@@ -1,0 +1,340 @@
+[
+  {
+    "id": 1,
+    "title": "Scholarship Payment Delay (NSP / State)",
+    "title_hi": "छात्रवृत्ति भुगतान में देरी (NSP / राज्य छात्रवृत्ति)",
+    "category": "Education",
+    "description": "Student reports that their scholarship has been sanctioned or applied for, but funds have not been credited to their bank account.",
+    "description_hi": "छात्र की छात्रवृत्ति स्वीकृत होने के बावजूद बैंक खाते में धनराशि प्राप्त नहीं हुई है।",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Is your bank account successfully seeded and mapped with your Aadhaar in NPCI mapper?",
+        "question_hi": "क्या आपका बैंक खाता NPCI मैपर में आधार से सफलतापूर्वक मैप/सीड है?",
+        "options": ["Yes, verified on UIDAI/bank", "No, never did it", "Not sure / Don't know"]
+      },
+      {
+        "id": 2,
+        "question": "Has your scholarship application been verified by your Institute / College Nodal Officer?",
+        "question_hi": "क्या आपके आवेदन का सत्यापन आपके कॉलेज/संस्थान के नोडल अधिकारी द्वारा हो चुका है?",
+        "options": ["Yes, status shows Verified", "No, shows Pending at Institute", "Not sure"]
+      },
+      {
+        "id": 3,
+        "question": "Does PFMS or NSP tracking show a Payment Failed or Rejected by Bank status?",
+        "question_hi": "क्या PFMS या NSP ट्रैकिंग पर 'Payment Failed' या 'Rejected by Bank' दिखाई दे रहा है?",
+        "options": ["Shows Payment Failed / Rejected", "Shows Processing at Ministry/PFMS", "No status / Not applied"]
+      },
+      {
+        "id": 4,
+        "question": "Is your bank account currently active without any dormant or KYC limits?",
+        "question_hi": "क्या आपका बैंक खाता चालू है और कोई न्यूनतम सीमा या KYC रुकावट नहीं है?",
+        "options": ["Yes, fully active", "No, account is dormant / closed", "Account has limit restrictions"]
+      }
+    ],
+    "rules": [
+      {
+        "condition": "aadhaar_not_seeded",
+        "match": ["No, never did it", "Not sure / Don't know"],
+        "cause": "Aadhaar Not Seeded in NPCI Mapper",
+        "cause_hi": "NPCI मैपर में आधार बैंक से लिंक/सीड नहीं है",
+        "severity": "High",
+        "guidance": "Government DBT payments are routed strictly via the NPCI Aadhaar Payment Bridge. Even if your Aadhaar is linked for KYC, you must submit the 'Aadhaar Seeding / Mandate Consent Form' at your bank branch to map it for DBT credits.",
+        "guidance_hi": "सरकारी डीबीटी भुगतान एनपीसीआई आधार पेमेंट ब्रिज के माध्यम से ही भेजे जाते हैं। बैंक शाखा में जाकर आधार सीडिंग सहमति पत्र (DBT Mandate Form) जमा करें।",
+        "action_steps": [
+          "Visit your home bank branch with your original Aadhaar Card and Passbook.",
+          "Request the 'Aadhaar Seeding and Mandate Consent Form for DBT'.",
+          "Ask the bank executive to link it to the NPCI DBT mapper (not just KYC).",
+          "Check status after 48 hours on the official UIDAI portal (resident.uidai.gov.in/bank-mapper)."
+        ],
+        "escalation_authority": "UIDAI & Bank Branch Manager / Banking Ombudsman",
+        "escalation_url": "https://resident.uidai.gov.in/bank-mapper"
+      },
+      {
+        "condition": "institute_verification_pending",
+        "match": ["No, shows Pending at Institute"],
+        "cause": "Institute / Nodal Verification Pending",
+        "cause_hi": "संस्थान स्तर पर सत्यापन लंबित",
+        "severity": "Medium",
+        "guidance": "Your application has not yet moved to the State or Central Department for merit list generation because the Institute Nodal Officer (INO) has not verified your documents.",
+        "guidance_hi": "आपके आवेदन का सत्यापन आपके कॉलेज या संस्थान के छात्रवृत्ति सेल द्वारा अभी तक नहीं किया गया है।",
+        "action_steps": [
+          "Meet your college/school Scholarship In-charge or Registrar.",
+          "Provide your application reference number and submitted hard copies.",
+          "Ensure verification is submitted before the official NSP state deadline."
+        ],
+        "escalation_authority": "Institute Nodal Officer / District Welfare Officer",
+        "escalation_url": "https://scholarships.gov.in/"
+      },
+      {
+        "condition": "dormant_or_limit_account",
+        "match": ["No, account is dormant / closed", "Account has limit restrictions"],
+        "cause": "Bank Account Inactive, Dormant, or Reached Credit Limit",
+        "cause_hi": "बैंक खाता निष्क्रिय, बंद या क्रेडिट सीमा पार",
+        "severity": "High",
+        "guidance": "Small savings accounts (PMJDY) have an annual maximum credit limit of Rs 1,00,000. If your scholarship amount exceeds this limit, the bank's CBS rejects the transaction with code 'Credit Limit Exceeded' or 'Account Inactive'.",
+        "guidance_hi": "जनधन या छोटे बचत खातों में अधिकतम वार्षिक जमा सीमा ₹1 लाख होती है। सीमा पार होने पर बैंक भुगतान अस्वीकार कर देता है।",
+        "action_steps": [
+          "Visit the bank branch to complete full biometric re-KYC.",
+          "Upgrade the account from Small Savings to Regular Savings account if required.",
+          "Submit a fresh transaction status printout to the scholarship department."
+        ],
+        "escalation_authority": "Bank Branch Manager / PFMS Helpdesk",
+        "escalation_url": "https://pfms.nic.in/"
+      },
+      {
+        "condition": "pfms_processing_delay",
+        "match": ["Shows Processing at Ministry/PFMS", "Yes, fully active"],
+        "cause": "Ministry Sanction / PFMS Batch Processing Queue",
+        "cause_hi": "मंत्रालय स्तर पर बजट आवंटन या PFMS बैच प्रक्रिया में",
+        "severity": "Low",
+        "guidance": "Your application and banking details are completely verified. The payment is in the scheduled release pipeline awaiting central/state treasury token generation.",
+        "guidance_hi": "आपके सभी दस्तावेज और बैंक विवरण सही हैं। भुगतान ट्रेजरी से टोकन जारी होने की प्रतीक्षा में है।",
+        "action_steps": [
+          "Track token number on PFMS 'Know Your Payments' portal.",
+          "Allow 10-15 business days for batch clearance.",
+          "If unpaid after 30 days, register a grievance on CPGRAMS portal."
+        ],
+        "escalation_authority": "PFMS Helpline (1800 118 111) / CPGRAMS",
+        "escalation_url": "https://pfms.nic.in/NewDefaultHome.aspx"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "PM-KISAN Installment Not Credited",
+    "title_hi": "पीएम किसान सम्मान निधि की किस्त न मिलना",
+    "category": "Agriculture",
+    "description": "Farmer has not received the latest PM-KISAN 4-monthly installment of Rs 2,000.",
+    "description_hi": "किसान को पीएम किसान की ₹2,000 की त्रैमासिक किस्त प्राप्त नहीं हुई है।",
+    "questions": [
+      {
+        "id": 5,
+        "question": "Is your PM-KISAN e-KYC status showing 'Completed' on the official portal?",
+        "question_hi": "क्या आधिकारिक पोर्टल पर आपकी e-KYC स्थिति 'Completed' (पूर्ण) दिखा रही है?",
+        "options": ["Yes, completed via OTP / Biometric", "No, not done yet", "Not sure"]
+      },
+      {
+        "id": 6,
+        "question": "Is Land Seeding marked as 'YES' on your PM-KISAN beneficiary status page?",
+        "question_hi": "क्या आपके बेनेफिशियरी स्टेटस पेज पर 'Land Seeding' (भूमि सत्यापन) YES है?",
+        "options": ["Yes, Land Seeding is YES", "No, Land Seeding is NO", "Status shows Pending"]
+      },
+      {
+        "id": 7,
+        "question": "Is Aadhaar Bank Seeding Status showing 'Active / Enabled'?",
+        "question_hi": "क्या आधार बैंक सीडिंग स्थिति 'Active / Enabled' दिखा रही है?",
+        "options": ["Yes, Active and mapped", "No, showing Inactive", "Not sure"]
+      }
+    ],
+    "rules": [
+      {
+        "condition": "ekyc_pending",
+        "match": ["No, not done yet", "Not sure"],
+        "cause": "Mandatory e-KYC Not Completed",
+        "cause_hi": "अनिवार्य e-KYC अपूर्ण",
+        "severity": "High",
+        "guidance": "Under Ministry of Agriculture guidelines, e-KYC is mandatory for all PM-KISAN beneficiaries. Without completing e-KYC, subsequent installment releases are withheld by the central server.",
+        "guidance_hi": "कृषि मंत्रालय के नियमों के अनुसार सभी लाभार्थियों के लिए e-KYC अनिवार्य है। e-KYC न होने पर किस्त रोक दी जाती है।",
+        "action_steps": [
+          "Open pmkisan.gov.in and click on 'e-KYC' under Farmers Corner.",
+          "Enter your 12-digit Aadhaar number and verify via Aadhaar-linked OTP.",
+          "If mobile is not linked, visit nearest CSC for biometric fingerprint authentication."
+        ],
+        "escalation_authority": "PM-KISAN Helpdesk / CSC",
+        "escalation_url": "https://pmkisan.gov.in/"
+      },
+      {
+        "condition": "land_seeding_no",
+        "match": ["No, Land Seeding is NO", "Status shows Pending"],
+        "cause": "Land Records Verification (Land Seeding) Missing",
+        "cause_hi": "भूमि रिकॉर्ड सत्यापन (Land Seeding) लंबित या NO",
+        "severity": "High",
+        "guidance": "State land records must be cross-verified with the revenue department. If 'Land Seeding' shows 'NO', your land document has not been uploaded to the portal by the local Patwari/Lekhpal.",
+        "guidance_hi": "तहसील स्तर पर लेखपाल या पटवारी द्वारा खतौनी/भूलेख का सत्यापन पोर्टल पर दर्ज नहीं किया गया है।",
+        "action_steps": [
+          "Take a printout of your current PM-KISAN beneficiary status.",
+          "Attach latest Khatauni/Khasra (land record copy) with your Aadhaar.",
+          "Submit it to the Tehsil Agriculture Officer or your local Lekhpal/Patwari.",
+          "Request entry in the State PM-KISAN portal for land seeding."
+        ],
+        "escalation_authority": "Tehsildar / District Agriculture Officer (DAO)",
+        "escalation_url": "https://pmkisan.gov.in/"
+      },
+      {
+        "condition": "aadhaar_seeding_inactive",
+        "match": ["No, showing Inactive"],
+        "cause": "Aadhaar Payment Bridge Not Configured at Bank",
+        "cause_hi": "बैंक में आधार पेमेंट ब्रिज निष्क्रिय",
+        "severity": "High",
+        "guidance": "Even if your account received previous installments, mergers of banks (e.g. Allahabad to Indian Bank) often deactivate the NPCI mapping, causing transaction failure.",
+        "guidance_hi": "बैंक विलय या निष्क्रियता के कारण एनपीसीआई मैपर से खाता हट गया है।",
+        "action_steps": [
+          "Visit your bank branch with Aadhaar card.",
+          "Submit form to enable DBT / Aadhaar payment bridge.",
+          "Alternatively, open an India Post Payments Bank (IPPB) DBT-enabled account."
+        ],
+        "escalation_authority": "Bank Branch Manager / India Post Payments Bank",
+        "escalation_url": "https://www.ippbonline.com/"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Pension Disbursal Interruption (Old Age / Widow / Disability)",
+    "title_hi": "पेंशन वितरण में रुकावट (वृद्धावस्था / विधवा / दिव्यांग)",
+    "category": "Pension",
+    "description": "Pensioner has not received monthly or quarterly pension credits under NSAP or State Social Welfare schemes.",
+    "description_hi": "पेंशनभोगी को मासिक या त्रैमासिक पेंशन की राशि बैंक खाते में प्राप्त नहीं हुई है।",
+    "questions": [
+      {
+        "id": 8,
+        "question": "Did you submit your annual Digital Life Certificate (Jeevan Pramaan / Annual Verification) this financial year?",
+        "question_hi": "क्या आपने इस वर्ष अपना वार्षिक जीवन प्रमाण पत्र (Jeevan Pramaan) जमा किया है?",
+        "options": ["Yes, submitted and approved", "No, have not submitted", "Don't know / Need help"]
+      },
+      {
+        "id": 9,
+        "question": "Has there been any change in your bank branch, IFSC code, or merger of your bank?",
+        "question_hi": "क्या आपके बैंक शाखा, IFSC कोड या बैंक विलय में कोई बदलाव हुआ है?",
+        "options": ["Yes, IFSC or branch changed", "No, same account for years", "Not sure"]
+      },
+      {
+        "id": 10,
+        "question": "Have you verified that your account is marked as a DBT Beneficiary Account at the branch?",
+        "question_hi": "क्या आपने शाखा में सत्यापित किया है कि आपका खाता DBT लाभार्थी खाता है?",
+        "options": ["Yes, verified", "No, not verified", "Account is joint account"]
+      }
+    ],
+    "rules": [
+      {
+        "condition": "life_certificate_expired",
+        "match": ["No, have not submitted", "Don't know / Need help"],
+        "cause": "Annual Life Certificate (Jeevan Pramaan) Expired",
+        "cause_hi": "वार्षिक जीवन प्रमाण पत्र जमा न होना",
+        "severity": "Critical",
+        "guidance": "Government pension disbursals are automatically halted after 12 months if the beneficiary does not submit proof of life. As soon as the Digital Life Certificate is processed, backdated arrears are disbursed.",
+        "guidance_hi": "जीवन प्रमाण पत्र न देने पर 12 माह बाद पेंशन स्वतः रुक जाती है। प्रमाण पत्र जमा होते ही रुकी हुई राशि मिल जाती है।",
+        "action_steps": [
+          "Visit nearest Post Office, CSC, or Bank with biometric reader.",
+          "Alternatively, use the 'Jeevan Pramaan Face App' on an Android mobile with Aadhaar FaceRD.",
+          "Submit Digital Life Certificate with your Pension Payment Order (PPO) number."
+        ],
+        "escalation_authority": "Jeevan Pramaan Portal & District Social Welfare Officer",
+        "escalation_url": "https://jeevanpramaan.gov.in/"
+      },
+      {
+        "condition": "ifsc_mismatch_merger",
+        "match": ["Yes, IFSC or branch changed"],
+        "cause": "Bank Merger / Invalid IFSC in Government Records",
+        "cause_hi": "बैंक विलय या पुराने IFSC कोड का विवरण",
+        "severity": "High",
+        "guidance": "Due to bank consolidations, old IFSC codes (such as Andhra Bank, Syndicate Bank, United Bank, Oriental Bank) have been permanently disabled, causing credit rejections.",
+        "guidance_hi": "बैंक विलय के बाद पुराना IFSC अमान्य हो गया है जिससे ट्रेजरी से भुगतान वापस लौट जाता है।",
+        "action_steps": [
+          "Obtain an updated passbook with the new IFSC from your branch.",
+          "Visit the Block Development Office or Social Welfare Office.",
+          "Submit an IFSC Correction Form with a cancelled cheque or passbook copy."
+        ],
+        "escalation_authority": "District Social Welfare Officer / Treasury Officer",
+        "escalation_url": "https://nsap.nic.in/"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Aadhaar-Bank Seeding & NPCI Mapper Failure",
+    "title_hi": "आधार-बैंक सीडिंग एवं एनपीसीआई मैपर विफलता",
+    "category": "Banking & Identity",
+    "description": "Citizen encounters errors such as 'Bank account not seeded with Aadhaar', 'Inactive UID', or 'Aadhaar not found in NPCI mapper'.",
+    "description_hi": "नागरिक को बैंक में आधार लिंक होने के बावजूद डीबीटी मैपर में अनुपलब्ध होने की समस्या।",
+    "questions": [
+      {
+        "id": 11,
+        "question": "Did you specifically ask your bank for 'DBT Seeding' rather than ordinary KYC linking?",
+        "question_hi": "क्या आपने बैंक में सामान्य KYC की बजाय 'DBT सीडिंग' के लिए स्पष्ट अनुरोध किया था?",
+        "options": ["Yes, submitted DBT Mandate form", "No, just gave Aadhaar for KYC", "Not sure what the difference is"]
+      },
+      {
+        "id": 12,
+        "question": "Do you have multiple accounts across different banks?",
+        "question_hi": "क्या आपके विभिन्न बैंकों में एक से अधिक बैंक खाते हैं?",
+        "options": ["Yes, have 2 or more accounts", "No, only this single account"]
+      }
+    ],
+    "rules": [
+      {
+        "condition": "kyc_vs_dbt_confusion",
+        "match": ["No, just gave Aadhaar for KYC", "Not sure what the difference is"],
+        "cause": "Account Linked for KYC but NOT Seeded for DBT",
+        "cause_hi": "खाता KYC हेतु जुड़ा है, पर DBT हेतु सीड नहीं है",
+        "severity": "High",
+        "guidance": "Linking Aadhaar for KYC verifies your identity, but does NOT allow the government to send money through Aadhaar. Only one account can be seeded in the NPCI central mapper to receive government funds.",
+        "guidance_hi": "KYC के लिए आधार लिंक होना और सरकारी लाभ (DBT) प्राप्त करने के लिए NPCI मैपर में सीड होना दो अलग प्रक्रियाएं हैं।",
+        "action_steps": [
+          "Download the official 'Application for Linking / Seeding Aadhaar Number' from NPCI or UIDAI.",
+          "Submit it at your bank counter and tick option 1: 'I wish to seed my account with NPCI mapper to receive DBT'.",
+          "Ensure the branch clerk updates the status on their core banking terminal."
+        ],
+        "escalation_authority": "Bank Branch Manager / Banking Ombudsman (RBI)",
+        "escalation_url": "https://uidai.gov.in/"
+      },
+      {
+        "condition": "multiple_accounts_conflict",
+        "match": ["Yes, have 2 or more accounts"],
+        "cause": "DBT Crediting to Another / Dormant Bank Account",
+        "cause_hi": "डीबीटी किसी अन्य या पुराने खाते में जमा होना",
+        "severity": "Medium",
+        "guidance": "NPCI mapper directs payments to the LAST bank account where DBT mandate was registered. Money may already be safely deposited in another account you rarely check (e.g. an old post office or student account).",
+        "guidance_hi": "एनपीसीआई मैपर अंतिम बार पंजीकृत बैंक खाते में राशि भेजता है। हो सकता है राशि आपके किसी अन्य पुराने खाते में जा रही हो।",
+        "action_steps": [
+          "Check all existing savings and post office accounts for recent credits.",
+          "Check which bank is active on the UIDAI portal.",
+          "Submit a transfer mandate at your preferred bank to redirect future DBTs."
+        ],
+        "escalation_authority": "UIDAI Resident Portal & Concerned Banks",
+        "escalation_url": "https://resident.uidai.gov.in/bank-mapper"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "PMAY Housing Scheme Installment Stalled",
+    "title_hi": "पीएम आवास योजना की अगली किस्त में रुकावट",
+    "category": "Housing",
+    "description": "Beneficiary constructed the plinth or lintel level, but the subsequent construction grant installment has not been released.",
+    "description_hi": "नींव या दीवार स्तर तक निर्माण के बाद भी अगली निर्माण सहायता किस्त जारी न होना।",
+    "questions": [
+      {
+        "id": 13,
+        "question": "Has the geo-tagged photograph of your current construction stage been uploaded by the official on AwaasApp?",
+        "question_hi": "क्या आवास-ऐप पर अधिकारी द्वारा निर्माण चरण का जियो-टैग फोटो अपलोड हो गया है?",
+        "options": ["Yes, photo was taken", "No, official has not visited yet", "Not sure"]
+      },
+      {
+        "id": 14,
+        "question": "Has the physical inspection certificate been approved by the Block Development Officer (BDO)?",
+        "question_hi": "क्या खंड विकास अधिकारी (BDO) द्वारा भौतिक निरीक्षण सत्यापित हो चुका है?",
+        "options": ["Yes, approved", "No, still pending", "Don't know"]
+      }
+    ],
+    "rules": [
+      {
+        "condition": "geotagging_pending",
+        "match": ["No, official has not visited yet", "Not sure"],
+        "cause": "Mandatory Geo-tagging of Stage Pending on AwaasApp",
+        "cause_hi": "आवास-ऐप पर जियो-टैगिंग सत्यापन लंबित",
+        "severity": "High",
+        "guidance": "Under PMAY guidelines, each construction stage (Foundation -> Plinth -> Lintel -> Roof) requires a satellite GPS tagged photo uploaded through the government AwaasApp before fund release.",
+        "guidance_hi": "पीएम आवास में प्रत्येक चरण पर जीपीएस फोटो अपलोड होने के बाद ही अगली किस्त स्वतः जारी होती है।",
+        "action_steps": [
+          "Contact your Gram Panchayat Secretary or Urban Local Body Housing Officer.",
+          "Request a site inspection visit for geo-tagging on AwaasApp.",
+          "Track progress on rhreporting.nic.in or pmaymis.gov.in."
+        ],
+        "escalation_authority": "Block Development Officer (BDO) / Municipal Commissioner",
+        "escalation_url": "https://pmayg.nic.in/"
+      }
+    ]
+  }
+]
