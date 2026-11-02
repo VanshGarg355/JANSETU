@@ -1316,7 +1316,7 @@ async function searchWeb(query) {
 // Groq models in order of preference (llama-3.1-70b-versatile was decommissioned by Groq).
 const GROQ_MODELS = [
   process.env.GROQ_MODEL,
-  "llama3-8b-8192",
+  "llama-3.3-70b-versatile",
   "llama-3.1-8b-instant",
 ].filter(Boolean);
 
