@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#F5F4EF] text-[#0F0F0E];
+  }
+}
+
+/* Custom Clean Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EFEDE6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D3D0C6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A09E96;
+}
+
+/* ==========================================================================
+   Hero: infinite column mosaic + load entrance
+   Easing: EXPO (.16,1,.3,1) · QUART (.25,1,.5,1) · QUINT (.22,1,.36,1)
+   ========================================================================== */
+.hero-split {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+
+/* --- Mosaic ------------------------------------------------------------ */
+.mosaic {
+  --gap: 13px;
+  --r: 22px;
+  --loop: 14.6s; /* 5 tiles x 2.92s */
+  position: relative;
+  display: flex;
+  gap: var(--gap);
+  height: 460px;
+  overflow: hidden;
+  border-radius: 28px;
+  isolation: isolate;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+@media (min-width: 1024px) { .mosaic { height: 540px; } }
+
+.mosaic-col {
+  flex: 1 1 0;
+  min-width: 0;
+  will-change: transform;
+  animation: colDown var(--loop) linear infinite;
+}
+.mosaic-c2 { animation-name: colUp; margin-top: -11px; }
+.mosaic-c1 { margin-top: 60px; }
+.mosaic-c3 { margin-top: 60px; }
+
+@keyframes colDown { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+@keyframes colUp   { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+
+.mosaic-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 205 / 270;
+  margin-bottom: var(--gap); /* margin (not gap) so the -50% loop is exact */
+  padding: 16px;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.mosaic-cell::after { /* subtle grain */
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .13;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.mosaic-icon { position: relative; z-index: 1; }
+.mosaic-text { position: relative; z-index: 1; }
+.mosaic-label { font-weight: 800; font-size: clamp(1.1rem, 2.1vw, 1.6rem); line-height: 1.05; letter-spacing: -.03em; }
+.mosaic-sub { margin-top: 4px; font-size: .72rem; font-weight: 600; opacity: .8; line-height: 1.25; }
+
+.mosaic-navy    { background: #151515; color: #F9F6F1; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); } /* dark */
+.mosaic-blue    { background: #9FD5F7; color: #0F0F0E; }
+.mosaic-cream   { background: #F9F6F1; color: #0F0F0E; box-shadow: inset 0 0 0 1px #E9E6DF; }
+.mosaic-saffron { background: #EF5D44; color: #0F0F0E; } /* red */
+.mosaic-green   { background: #FCDD71; color: #0F0F0E; } /* yellow */
+.mosaic-amber   { background: #FCDD71; color: #0F0F0E; }
+
+/* --- Load entrance (only while html.intro is set) ---------------------- */
+.hero-line { display: block; overflow: hidden; }
+.hero-line > span { display: block; }
+
+html.intro .hero-line > span { transform: translateY(110%); }
+html.intro .hero-fade        { opacity: 0; transform: translateY(14px); }
+html.intro .mosaic           { opacity: 0; }
+html.intro .mosaic-col       { animation-play-state: paused; }
+
+html.intro-run .hero-line > span {
+  animation: heroRise 1s cubic-bezier(.16, 1, .3, 1) both;
+  animation-delay: calc(.30s + var(--i, 0) * .085s);
+}
+html.intro-run .hero-fade {
+  animation: heroFade .9s cubic-bezier(.25, 1, .5, 1) both;
+  animation-delay: calc(.55s + var(--i, 0) * .08s);
+}
+html.intro-run .mosaic { animation: mosaicIn .9s cubic-bezier(.25, 1, .5, 1) .15s both; }
+/* Columns slide in, then hand off to the marquee at the 2.1s mark.
+   --end is where the marquee keyframe starts, so the handoff is seamless. */
+html.intro-run .mosaic-c1, html.intro-run .mosaic-c3 { --end: 0%;   --off: 70%;  --col-anim: colDown; }
+html.intro-run .mosaic-c2                            { --end: -50%; --off: -70%; --col-anim: colUp; }
+html.intro-run .mosaic-col {
+  animation:
+    colEnter 2.1s cubic-bezier(.22, 1, .36, 1) both,
+    var(--col-anim) var(--loop) linear 2.1s infinite;
+}
+
+@keyframes heroRise  { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes heroFade  { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes mosaicIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes colEnter  { from { transform: translate3d(0, calc(var(--end, 0%) + var(--off, 70%)), 0); } to { transform: translate3d(0, var(--end, 0%), 0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-col { animation: none !important; }
+  .hero-line > span, .hero-fade, .mosaic { animation: none !important; transform: none !important; opacity: 1 !important; }
+}
