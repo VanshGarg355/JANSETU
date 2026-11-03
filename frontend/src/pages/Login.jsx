@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth, DEMO_PERSONAS } from '../context/AuthContext';
 import {
@@ -23,8 +23,6 @@ function Login() {
   const { t, i18n } = useTranslation();
   const { user, login, switchPersona, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const redirectTarget = location.state?.from?.pathname || '/dashboard';
 
   const [authMode, setAuthMode] = useState('credentials'); // 'credentials' | 'otp'
   const [email, setEmail] = useState('citizen@jansetu.in');
@@ -43,7 +41,7 @@ function Login() {
     setLoading(true);
     try {
       await login(email, password);
-      navigate(redirectTarget);
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Login failed. Please verify credentials.');
     } finally {
@@ -70,7 +68,7 @@ function Login() {
     setLoading(true);
     try {
       await login('citizen@jansetu.in', 'password123', DEMO_PERSONAS[0]);
-      navigate(redirectTarget);
+      navigate('/dashboard');
     } catch (err) {
       setError('OTP verification failed.');
     } finally {
@@ -84,7 +82,7 @@ function Login() {
     try {
       switchPersona(persona);
       setTimeout(() => {
-        navigate(redirectTarget);
+        navigate('/dashboard');
       }, 400);
     } catch (err) {
       setError('Failed to switch persona');
@@ -124,23 +122,6 @@ function Login() {
             >
               Sign Out
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* Login Required Notice when redirected */}
-      {!user && location.state?.from && (
-        <div className="max-w-4xl mx-auto w-full mb-6 bg-amber-50 border border-amber-300 rounded-2xl p-4 shadow-sm flex items-center gap-3 text-amber-900">
-          <AlertCircle className="w-5 h-5 text-amber-700 shrink-0" />
-          <div className="text-xs sm:text-sm">
-            <span className="font-bold text-amber-950 block">
-              {i18n.language === 'hi' ? 'लॉगिन आवश्यक है (Login Required)' : 'Login Required'}
-            </span>
-            <span className="text-amber-900 font-medium">
-              {i18n.language === 'hi'
-                ? 'सरकारी योजनाएं खोजने, डीबीटी स्थिति जांचने और जनसेतु सेवाओं का उपयोग करने के लिए कृपया पहले लॉगिन करें या 1-क्लिक नागरिक प्रोफाइल चुनें।'
-                : 'Please log in or select a demo citizen persona below to search welfare schemes and access DBT services.'}
-            </span>
           </div>
         </div>
       )}

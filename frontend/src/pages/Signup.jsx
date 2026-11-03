@@ -13,9 +13,18 @@ function Signup() {
     name: '',
     email: '',
     password: '',
+    father_name: '',
+    mother_name: '',
+    dob: '',
+    gender: 'Male',
+    mobile: '',
+    address: '',
     occupation: 'Farmer',
     state: 'Uttar Pradesh',
-    category: 'General'
+    district: '',
+    pincode: '',
+    category: 'General',
+    annual_income: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -129,6 +138,145 @@ function Signup() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Father's Name
+              </label>
+              <input
+                type="text"
+                name="father_name"
+                value={formData.father_name}
+                onChange={handleChange}
+                placeholder="e.g. Suresh Patel"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Mother's Name
+              </label>
+              <input
+                type="text"
+                name="mother_name"
+                value={formData.mother_name}
+                onChange={handleChange}
+                placeholder="e.g. Kamlesh Patel"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Gender
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              >
+                <option value="">Prefer not to say</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                name="mobile"
+                maxLength={10}
+                value={formData.mobile}
+                onChange={handleChange}
+                placeholder="10-digit mobile number"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Annual Family Income (₹)
+              </label>
+              <input
+                type="number"
+                name="annual_income"
+                min="0"
+                value={formData.annual_income}
+                onChange={handleChange}
+                placeholder="e.g. 120000"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-taupe-850 mb-1">
+              Complete Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Village / House No / Street / District / State / PIN"
+              className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                District
+              </label>
+              <input
+                type="text"
+                name="district"
+                value={formData.district}
+                onChange={handleChange}
+                placeholder="e.g. Meerut"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                PIN Code
+              </label>
+              <input
+                type="text"
+                name="pincode"
+                maxLength={6}
+                value={formData.pincode}
+                onChange={handleChange}
+                placeholder="e.g. 201301"
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
                 Occupation
               </label>
               <div className="relative">
@@ -163,6 +311,25 @@ function Signup() {
                   ))}
                 </select>
               </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-taupe-850 mb-1">
+                Social Category (optional)
+              </label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-taupe-50 rounded-xl border border-taupe-300 text-sm text-taupe-900 focus:outline-none focus:ring-2 focus:ring-taupe-800 font-medium"
+              >
+                <option value="General">General</option>
+                <option value="OBC">Other Backward Class (OBC)</option>
+                <option value="SC">Scheduled Caste (SC)</option>
+                <option value="ST">Scheduled Tribe (ST)</option>
+              </select>
             </div>
           </div>
 

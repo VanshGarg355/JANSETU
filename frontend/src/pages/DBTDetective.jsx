@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PortalStepText from '../components/PortalStepText';
 import { apiUrl } from '../api.js';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
@@ -859,9 +858,9 @@ function DBTDetective() {
                     <span className="w-6 h-6 rounded-full bg-taupe-900 text-taupe-50 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
-                    <div className="flex-1 text-xs sm:text-sm text-taupe-900">
-                      <PortalStepText text={step} isHindi={isHindi} />
-                    </div>
+                    <span className="text-xs sm:text-sm text-taupe-900 leading-relaxed font-medium">
+                      {step}
+                    </span>
                   </div>
                 ))}
               </div>

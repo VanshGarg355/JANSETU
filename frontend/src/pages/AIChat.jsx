@@ -453,6 +453,7 @@ function AIChat() {
 
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
+  const lastUserQueryRef = useRef('');
   const [copiedId, setCopiedId] = useState(null);
   const [copiedLetterId, setCopiedLetterId] = useState(null);
   const [expandedLetterId, setExpandedLetterId] = useState(null);
@@ -662,6 +663,7 @@ function AIChat() {
     if (!text || !text.trim() || loading) return;
 
     const trimmed = text.trim();
+    lastUserQueryRef.current = trimmed;
 
     const userMsg = {
       id: Date.now(),
@@ -682,6 +684,17 @@ function AIChat() {
         body: JSON.stringify({
           message: trimmed,
           language: isHindi ? 'hi' : 'en',
+          history: messages
+            .slice(-10)
+            .filter((m) => m.sender)
+            .map((m) => ({
+              role: m.sender === 'assistant' ? 'assistant' : 'user',
+              content:
+                m.text ||
+                [m.identified_issue, m.root_cause, (m.action_steps || []).join(' '), (m.documents || []).join(' ')]
+                  .filter(Boolean)
+                  .join(' ')
+            })),
           profile_id: user?.id
         })
       });
@@ -928,7 +941,7 @@ function AIChat() {
                             <span className="w-5 h-5 rounded-full bg-taupe-900 text-taupe-50 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">
                               {sIdx + 1}
                             </span>
-                            <div className="flex-1 text-taupe-900 font-medium"><PortalStepText text={step} isHindi={isHindi} /></div>
+                            <span className="text-taupe-900 font-medium">{step}</span>
                           </div>
                         ))}
                       </div>
@@ -1125,6 +1138,24 @@ function AIChat() {
                               <span>{isHindi ? 'कॉपी' : 'Copy'}</span>
                             </>
                           )}
+                        </button>
+
+                        {/* Retry Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const assistantIndex = messages.findIndex((m) => m.id === msg.id);
+                            const prevUserMsg = [...messages.slice(0, Math.max(assistantIndex, 0))]
+                              .reverse()
+                              .find((m) => m.sender === 'user');
+                            handleSendMessage(prevUserMsg?.text || lastUserQueryRef.current);
+                          }}
+                          disabled={loading}
+                          className="hover:opacity-100 flex items-center gap-1 font-bold transition-opacity disabled:opacity-40"
+                          title={isHindi ? 'उत्तर दोबारा बनाएं' : 'Regenerate Response'}
+                        >
+                          <RotateCcw size={12} />
+                          <span>{isHindi ? 'पुनः प्रयास' : 'Retry'}</span>
                         </button>
                       </div>
                     )}

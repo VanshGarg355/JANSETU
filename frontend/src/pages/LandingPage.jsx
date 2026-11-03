@@ -6,6 +6,7 @@ import {
   AlertCircle,
   MessageSquare,
   ShieldCheck,
+  Search,
   ArrowRight,
   CheckCircle2,
   HelpCircle,
@@ -30,6 +31,7 @@ let introPlayed = false;
 function LandingPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
 
   const isHindi = i18n.language === 'hi';
@@ -48,6 +50,24 @@ function LandingPage() {
       root.classList.remove('intro', 'intro-run');
     };
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/schemes?q=${encodeURIComponent(searchTerm.trim())}`);
+    } else {
+      navigate('/schemes');
+    }
+  };
+
+  const quickPills = [
+    { labelHi: '🌾 पीएम किसान', labelEn: '🌾 PM-Kisan', query: 'PM-Kisan' },
+    { labelHi: '🎓 छात्रवृत्ति', labelEn: '🎓 Scholarships', query: 'Scholarship' },
+    { labelHi: '🏥 आयुष्मान कार्ड', labelEn: '🏥 Ayushman Card', query: 'Ayushman' },
+    { labelHi: '👵 वृद्धा पेंशन', labelEn: '👵 Pension', query: 'Pension' },
+    { labelHi: '💼 मुद्रा लोन', labelEn: '💼 Mudra Loan', query: 'Mudra' },
+    { labelHi: '🏠 आवास योजना', labelEn: '🏠 PMAY Housing', query: 'Housing' }
+  ];
 
   const services = [
     {
@@ -201,8 +221,45 @@ function LandingPage() {
               {t('heroSubtitle')}
             </p>
 
+            {/* Quick Search Bar with Pills */}
+            <div style={{ '--i': 2 }} className="hero-fade max-w-xl mx-auto lg:mx-0 pt-2 space-y-2.5">
+              <form onSubmit={handleSearch} className="relative flex items-center">
+                <Search size={18} className="absolute left-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder={isHindi ? 'योजना खोजें (जैसे: किसान, छात्रवृत्ति, आवास, मुद्रा)...' : 'Search schemes (e.g. PM-Kisan, Scholarship, Housing, Mudra)...'}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-11 pr-28 py-3.5 bg-white rounded-2xl border-2 border-slate-300 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800 shadow-sm transition-all font-medium"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-2 px-4 py-2 bg-blue-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95"
+                >
+                  {isHindi ? 'खोजें' : 'Search'}
+                </button>
+              </form>
+
+              {/* Quick Suggestion Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+                <span className="text-[11px] font-bold text-slate-500 whitespace-nowrap">
+                  {isHindi ? 'लोकप्रिय:' : 'Popular:'}
+                </span>
+                {quickPills.map((pill, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => navigate(`/schemes?q=${encodeURIComponent(pill.query)}`)}
+                    className="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-800 rounded-lg text-[11px] font-bold border border-slate-200 transition-colors shadow-2xs whitespace-nowrap"
+                  >
+                    {isHindi ? pill.labelHi : pill.labelEn}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Hero CTA Action Buttons */}
-            <div style={{ '--i': 2 }} className="hero-fade flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+            <div style={{ '--i': 3 }} className="hero-fade flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
               <Link
                 to="/dashboard"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-900 hover:bg-black text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95"

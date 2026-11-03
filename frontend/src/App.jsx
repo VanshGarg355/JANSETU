@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import LanguageSwitcher from './components/LanguageSwitcher';
-import { Menu, ShieldCheck, User, LogIn, Lock, ArrowRight } from 'lucide-react';
+import { Menu, ShieldCheck, User } from 'lucide-react';
 
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -20,83 +19,13 @@ import LoanDiscovery from './pages/LoanDiscovery';
 import AdminDashboard from './pages/AdminDashboard';
 import DocumentsPage from './pages/DocumentsPage';
 
-// Protected Route Wrapper with Login Prompt & Direct Button
+// Protected Route Wrapper
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { i18n } = useTranslation();
-  const isHindi = i18n.language === 'hi';
-
   if (loading) {
-    return (
-      <div className="min-h-[50vh] flex items-center justify-center text-slate-500 text-sm">
-        Checking credentials...
-      </div>
-    );
+    return <div className="p-8 text-center text-xs text-taupe-500">Checking credentials...</div>;
   }
-
-  if (!user) {
-    return (
-      <div className="max-w-2xl mx-auto my-12 sm:my-16 px-4">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-xl text-center space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center mx-auto shadow-xs">
-            <Lock size={32} />
-          </div>
-
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 text-amber-900 text-xs font-bold border border-amber-200">
-              <ShieldCheck size={14} className="text-amber-700" />
-              <span>{isHindi ? 'सुरक्षित नागरिक सेवा' : 'Protected Citizen Service'}</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              {isHindi ? 'उपयोग करने के लिए कृपया लॉगिन करें' : 'Please Login to Use This Feature'}
-            </h2>
-
-            <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto leading-relaxed font-medium">
-              {isHindi
-                ? 'सरकारी योजनाएं खोजने, पात्रता व दस्तावेज जांचने, डीबीटी विफलता निवारण और ऋण सेवाओं का उपयोग करने के लिए कृपया पहले लॉगिन करें।'
-                : 'To search verified welfare schemes, check eligibility, diagnose DBT payment failures, and explore loans, please login to your citizen account first.'}
-            </p>
-          </div>
-
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => navigate('/login', { state: { from: location } })}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-900 hover:bg-black text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group active:scale-95"
-            >
-              <LogIn size={18} />
-              <span>{isHindi ? 'लॉगिन करें' : 'Login Now'}</span>
-              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition-all"
-            >
-              <span>{isHindi ? 'होम पेज पर जाएं' : 'Back to Home'}</span>
-            </button>
-          </div>
-
-          <div className="pt-4 border-t border-slate-100 text-xs text-slate-500">
-            {isHindi ? 'नया खाता बनाना चाहते हैं?' : "Don't have an account?"}{' '}
-            <button
-              type="button"
-              onClick={() => navigate('/signup')}
-              className="text-blue-900 font-bold hover:underline"
-            >
-              {isHindi ? 'साइन अप करें' : 'Sign up'}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return children;
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 function AppContent() {
@@ -199,12 +128,12 @@ function AppContent() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/schemes" element={<PrivateRoute><SchemeFinder /></PrivateRoute>} />
-          <Route path="/schemes/:id" element={<PrivateRoute><SchemeDetail /></PrivateRoute>} />
-          <Route path="/dbt" element={<PrivateRoute><DBTDetective /></PrivateRoute>} />
+          <Route path="/schemes" element={<SchemeFinder />} />
+          <Route path="/schemes/:id" element={<SchemeDetail />} />
+          <Route path="/dbt" element={<DBTDetective />} />
           <Route path="/documents" element={<PrivateRoute><DocumentsPage /></PrivateRoute>} />
-          <Route path="/loans" element={<PrivateRoute><LoanDiscovery /></PrivateRoute>} />
-          <Route path="/chat" element={<PrivateRoute><AIChat /></PrivateRoute>} />
+          <Route path="/loans" element={<LoanDiscovery />} />
+          <Route path="/chat" element={<AIChat />} />
 
           {/* Protected Routes */}
           <Route
