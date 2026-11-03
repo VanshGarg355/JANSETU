@@ -98,14 +98,13 @@ export const AuthProvider = ({ children }) => {
     try {
       const saved = localStorage.getItem('jansetu_user');
       if (saved) return JSON.parse(saved);
-      // Fallback: Start with default demo user so app is immediately usable, but allow clear logout
-      return DEMO_PERSONAS[0];
+      return null;
     } catch (e) {
-      return DEMO_PERSONAS[0];
+      return null;
     }
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem('jansetu_token') || 'demo-token');
+  const [token, setToken] = useState(() => localStorage.getItem('jansetu_token') || null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

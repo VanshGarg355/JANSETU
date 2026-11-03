@@ -928,7 +928,7 @@ function AIChat() {
                             <span className="w-5 h-5 rounded-full bg-taupe-900 text-taupe-50 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">
                               {sIdx + 1}
                             </span>
-                            <span className="text-taupe-900 font-medium">{step}</span>
+                            <div className="flex-1 text-taupe-900 font-medium"><PortalStepText text={step} isHindi={isHindi} /></div>
                           </div>
                         ))}
                       </div>

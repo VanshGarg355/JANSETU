@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PortalStepText from '../components/PortalStepText';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
@@ -1111,6 +1112,22 @@ function SchemeFinder() {
                             ))}
                           </div>
                         </div>
+
+                        {/* Direct Government Portal & Steps Link */}
+                        {scheme.application_process && (
+                          <div className="bg-blue-50/70 border border-blue-200/90 rounded-2xl p-3 mb-4 text-xs space-y-1.5">
+                            <div className="font-bold text-blue-950 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                              <ExternalLink size={13} className="text-blue-700 shrink-0" />
+                              <span>{isHindi ? 'आवेदन प्रक्रिया व पोर्टल वेबसाइट लिंक:' : 'How to Apply & Official Portal Link:'}</span>
+                            </div>
+                            <PortalStepText
+                              text={scheme.application_process}
+                              isHindi={isHindi}
+                              defaultPortalUrl={scheme.official_url}
+                              defaultPortalName={scheme.name}
+                            />
+                          </div>
+                        )}
                       </div>
 
                       {/* Bottom Footer Actions */}
@@ -1305,6 +1322,22 @@ function SchemeFinder() {
                             </span>
                           )}
                         </div>
+                      </div>
+                    )}
+
+                    {/* Direct Government Portal & Steps Link */}
+                    {scheme.application_process && (
+                      <div className="bg-blue-50/70 border border-blue-200/90 rounded-2xl p-3 mb-4 text-xs space-y-1.5">
+                        <div className="font-bold text-blue-950 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                          <ExternalLink size={13} className="text-blue-700 shrink-0" />
+                          <span>{isHindi ? 'आवेदन प्रक्रिया व पोर्टल वेबसाइट लिंक:' : 'How to Apply & Official Portal Link:'}</span>
+                        </div>
+                        <PortalStepText
+                          text={scheme.application_process}
+                          isHindi={isHindi}
+                          defaultPortalUrl={scheme.official_url}
+                          defaultPortalName={scheme.name}
+                        />
                       </div>
                     )}
                   </div>

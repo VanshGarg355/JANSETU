@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PortalStepText from '../components/PortalStepText';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -190,9 +191,14 @@ function SchemeDetail() {
         <h2 className="text-base font-bold text-taupe-950">
           {isHindi ? 'आवेदन प्रक्रिया' : 'How to Apply (Application Process)'}
         </h2>
-        <p className="text-xs sm:text-sm text-taupe-700 leading-relaxed">
-          {scheme.application_process || 'Apply online via the official national portal or visit your nearest Common Service Centre (CSC).'}
-        </p>
+        <div className="text-xs sm:text-sm text-taupe-800">
+          <PortalStepText
+            text={scheme.application_process || 'Apply online via the official national portal or visit your nearest Common Service Centre (CSC).'}
+            isHindi={isHindi}
+            defaultPortalUrl={scheme.official_url}
+            defaultPortalName={scheme.name}
+          />
+        </div>
 
         <div className="pt-4 flex flex-wrap items-center gap-3">
           {scheme.official_url && (
